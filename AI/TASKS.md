@@ -55,40 +55,40 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
 
 **Fase 2: Layout Básico dos Ecrãs (Sem Lógica de Dados)**
 
-- [ ] **2.1 Criar Estrutura de Pastas para Ecrãs e Widgets:**
-  - [ ] Criar a pasta `lib/screens` (se não existir).
-  - [ ] Criar a pasta `lib/widgets` (se não existir).
-- [ ] **2.2 Layout Básico - `MainScreen`:**
-  - [ ] Criar `lib/screens/main_screen.dart`.
-  - [ ] Implementar `MainScreen` como `StatelessWidget` _nesta fase_.
-  - [ ] Importar `package:flutter/material.dart`.
-  - [ ] No método `build`, retornar um `Scaffold`.
-  - [ ] Adicionar `AppBar` com `title: const Text('Gestor de Gastos')`.
-    - [ ] Adicionar um `IconButton` na `actions` da `AppBar` (ícone `Icons.edit` ou `Icons.account_balance_wallet`) com `onPressed: () {}` (para futuro diálogo de editar saldo).
-  - [ ] No `body` do `Scaffold`, adicionar `Padding` envolvendo uma `Column`.
-  - [ ] Dentro da `Column`:
-    - [ ] **Placeholder para Saldos:** Adicionar `Padding` contendo `Column` com `Text` widgets (e.g., "Saldo Total: € --.--", "Saldo Disponível: € --.--"). Usar `Theme.of(context).textTheme` para estilo.
-    - [ ] **Placeholder para Filtro:** Adicionar `Padding` com um `TextField` básico (sem `controller` ainda, apenas `decoration: InputDecoration(labelText: 'Filtrar...')`).
-    - [ ] **Placeholder para Lista:** Adicionar `Expanded` contendo um `ListView` com alguns `ListTile`s hardcoded (e.g., `ListTile(title: Text('Compra X'), subtitle: Text('10/10/2024'), trailing: Text('-€15.00'))`) ou um `Center(child: Text("Nenhuma transação."))`.
-  - [ ] Adicionar `FloatingActionButton` com `icon: const Icon(Icons.add)` e um `onPressed: () {}` vazio por agora.
-- [ ] **2.3 Layout Básico - `TransactionScreen`:**
-  - [ ] Criar `lib/screens/transaction_screen.dart`.
-  - [ ] Implementar `TransactionScreen` como `StatelessWidget` _nesta fase_.
-  - [ ] Adicionar construtor `const TransactionScreen({super.key, required this.isEditing});` e `final bool isEditing;`.
-  - [ ] Importar `package:flutter/material.dart`.
-  - [ ] No método `build`, retornar um `Scaffold`.
-  - [ ] Adicionar `AppBar` com `title: Text(isEditing ? 'Editar Transação' : 'Adicionar Transação')`.
-  - [ ] No `body` do `Scaffold`, adicionar `SingleChildScrollView` (para evitar overflow) contendo `Padding` com um `Column`. _(Poderia ser `Form` já, mas sem `key`/validação ainda)._
-  - [ ] Dentro da `Column`:
-    - [ ] `TextFormField` para Título (sem `controller`, com `decoration: InputDecoration(labelText: 'Título')`).
-    - [ ] `TextFormField` para Quantia (sem `controller`, com `decoration: InputDecoration(labelText: 'Quantia', prefixText: '€ '), keyboardType: TextInputType.numberWithOptions(decimal: true)`).
-    - [ ] `Row` contendo:
-      - [ ] `Expanded(child: Text("Data: -- / -- / ----"))` (Placeholder da data selecionada).
-      - [ ] `TextButton` com `child: const Text("Selecionar Data")` e `onPressed: () {}`.
-    - [ ] `SizedBox(height: 20)` para espaçamento.
-    - [ ] `ElevatedButton` com `child: const Text("Guardar")` e `onPressed: () {}`. Esticar o botão (`SizedBox(width: double.infinity, ...)` ou `Row/MainAxisAlignment.center`).
-- [ ] **2.4 Configurar Navegação Básica (Placeholder):**
-  - [ ] Em `main_screen.dart`, no `onPressed` do `FloatingActionButton`:
+- [x] **2.1 Criar Estrutura de Pastas para Ecrãs e Widgets:**
+  - [x] Criar a pasta `lib/screens` (se não existir).
+  - [x] Criar a pasta `lib/widgets` (se não existir).
+- [x] **2.2 Layout Básico - `MainScreen`:**
+  - [x] Criar `lib/screens/main_screen.dart`.
+  - [x] Implementar `MainScreen` como `StatelessWidget` _nesta fase_.
+  - [x] Importar `package:flutter/material.dart`.
+  - [x] No método `build`, retornar um `Scaffold`.
+  - [x] Adicionar `AppBar` com `title: const Text('Gestor de Gastos')`.
+    - [x] Adicionar um `IconButton` na `actions` da `AppBar` (ícone `Icons.account_balance_wallet`) com `onPressed: () {}` (para futuro diálogo de editar saldo).
+  - [x] No `body` do `Scaffold`, adicionar `Padding` envolvendo uma `Column`.
+  - [x] Dentro da `Column`:
+    - [x] **Placeholder para Saldos:** Adicionar `Padding` contendo `Column` com `Text` widgets (e.g., "Saldo Total: € --.--", "Saldo Disponível: € --.--"). Usar `Theme.of(context).textTheme` para estilo.
+    - [x] **Placeholder para Filtro:** Adicionar `Padding` com um `TextField` básico (sem `controller` ainda, apenas `decoration: InputDecoration(labelText: 'Filtrar...')`).
+    - [x] **Placeholder para Lista:** Adicionar `Expanded` contendo um `ListView` com alguns `ListTile`s hardcoded (e.g., `ListTile(title: Text('Compra X'), subtitle: Text('10/10/2024'), trailing: Text('-€15.00'))`) ou um `Center(child: Text("Nenhuma transação."))`.
+  - [x] Adicionar `FloatingActionButton` com `icon: const Icon(Icons.add)` e um `onPressed: () {}` vazio por agora.
+- [x] **2.3 Layout Básico - `TransactionScreen`:**
+  - [x] Criar `lib/screens/transaction_screen.dart`.
+  - [x] Implementar `TransactionScreen` como `StatelessWidget` _nesta fase_.
+  - [x] Adicionar construtor `const TransactionScreen({super.key, required this.isEditing});` e `final bool isEditing;`.
+  - [x] Importar `package:flutter/material.dart`.
+  - [x] No método `build`, retornar um `Scaffold`.
+  - [x] Adicionar `AppBar` com `title: Text(isEditing ? 'Editar Transação' : 'Adicionar Transação')`.
+  - [x] No `body` do `Scaffold`, adicionar `SingleChildScrollView` (para evitar overflow) contendo `Padding` com um `Column`. _(Poderia ser `Form` já, mas sem `key`/validação ainda)._
+  - [x] Dentro da `Column`:
+    - [x] `TextFormField` para Título (sem `controller`, com `decoration: InputDecoration(labelText: 'Título')`).
+    - [x] `TextFormField` para Quantia (sem `controller`, com `decoration: InputDecoration(labelText: 'Quantia', prefixText: '€ '), keyboardType: TextInputType.numberWithOptions(decimal: true)`).
+    - [x] `Row` contendo:
+      - [x] `Expanded(child: Text("Data: -- / -- / ----"))` (Placeholder da data selecionada).
+      - [x] `TextButton` com `child: const Text("Selecionar Data")` e `onPressed: () {}`.
+    - [x] `SizedBox(height: 20)` para espaçamento.
+    - [x] `ElevatedButton` com `child: const Text("Guardar")` e `onPressed: () {}`. Esticar o botão (`SizedBox(width: double.infinity, ...)` ou `Row/MainAxisAlignment.center`).
+- [x] **2.4 Configurar Navegação Básica (Placeholder):**
+  - [x] Em `main_screen.dart`, no `onPressed` do `FloatingActionButton`:
     ```dart
     Navigator.push(
       context,
@@ -97,42 +97,43 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
       ),
     );
     ```
-  - [ ] Em `transaction_screen.dart`, no `onPressed` do botão "Guardar":
+  - [x] Em `transaction_screen.dart`, no `onPressed` do botão "Guardar":
     ```dart
     Navigator.pop(context); // Apenas fecha o ecrã, sem passar dados
     ```
-- [ ] **2.5 Verificação Visual e Navegação:**
-  - [ ] Executar a aplicação (`flutter run`).
-  - [ ] Verificar se o `MainScreen` aparece com o tema, AppBar, placeholders de saldo, filtro, lista e FAB.
-  - [ ] Clicar no FAB deve abrir o `TransactionScreen`.
-  - [ ] Verificar se o título da `AppBar` no `TransactionScreen` é "Adicionar Transação".
-  - [ ] Verificar se os campos do formulário e botões estão visíveis.
-  - [ ] Clicar em "Selecionar Data" não faz nada (ok por agora).
-  - [ ] Clicar em "Guardar" deve fechar o `TransactionScreen` e voltar para o `MainScreen`.
+- [x] **2.5 Verificação Visual e Navegação:**
+  - [x] Executar a aplicação (`flutter run`).
+  - [x] Verificar se o `MainScreen` aparece com o tema, AppBar, placeholders de saldo, filtro, lista e FAB.
+  - [x] Clicar no FAB deve abrir o `TransactionScreen`.
+  - [x] Verificar se o título da `AppBar` no `TransactionScreen` é "Adicionar Transação".
+  - [x] Verificar se os campos do formulário e botões estão visíveis.
+  - [x] Clicar em "Selecionar Data" não faz nada (ok por agora).
+  - [x] Clicar em "Guardar" deve fechar o `TransactionScreen` e voltar para o `MainScreen`.
 
-**Fase 3: Widgets Reutilizáveis Básicos (Ainda com Dados Falsos)**
+**Fase 3: Widgets Reutilizáveis Básicos (Ainda com Dados Falsos)** ✓
 
-- [ ] **3.1 Widget Básico - `TransactionListItem`:**
-  - [ ] Criar `lib/widgets/transaction_list_item.dart`.
-  - [ ] Implementar `TransactionListItem` como `StatelessWidget`.
-  - [ ] Adicionar construtor: `const TransactionListItem({ super.key, required this.title, required this.amount, required this.date, required this.onEditTap, required this.onDeleteTap });`. Campos `final`.
-  - [ ] Adicionar parâmetros: `final String title`, `final String amount` (String formatada por agora), `final String date` (String formatada), `final VoidCallback onEditTap`, `final VoidCallback onDeleteTap`.
-  - [ ] No `build`, retornar um `Card` envolvendo um `ListTile`.
-  - [ ] Configurar `ListTile`:
-    - `title: Text(title)`.
-    - `subtitle: Text(date)`.
-    - `leading: CircleAvatar(child: Icon(Icons.attach_money))` (Exemplo).
-    - `trailing: Row(mainAxisSize: MainAxisSize.min, children: [ Text(amount), IconButton(icon: Icon(Icons.edit), onPressed: onEditTap), IconButton(icon: Icon(Icons.delete, color: Colors.red), onPressed: onDeleteTap) ])`. Ajustar layout/estilo conforme necessário.
-- [ ] **3.2 (Opcional, mas Recomendado) Widget Básico - `BalanceDisplay`:**
-  - [ ] Criar `lib/widgets/balance_display.dart`.
-  - [ ] Implementar como `StatelessWidget`.
-  - [ ] Adicionar construtor: `const BalanceDisplay({ super.key, required this.totalBalance, required this.availableBalance });`. Campos `final`.
-  - [ ] Adicionar parâmetros: `final String totalBalance`, `final String availableBalance` (Strings formatadas).
-  - [ ] No `build`, retornar um `Card` ou `Padding` contendo uma `Column` (ou `Row`) com dois `Text` widgets para exibir os saldos com `Labels` (e.g., "Saldo Total:", "Disponível:"). Aplicar estilos do tema.
-- [ ] **3.3 Integrar Widgets Básicos no `MainScreen`:**
-  - [ ] Em `main_screen.dart`, importar os novos widgets (`transaction_list_item.dart`, `balance_display.dart` se criado).
-  - [ ] Substituir o placeholder de saldos pelo `BalanceDisplay` (passando strings hardcoded como `"€ 1000.00"`, `"€ 500.50"`).
-  - [ ] No `ListView`, substituir os `ListTile`s hardcoded por alguns `TransactionListItem`s. Passar dados hardcoded e `onPressed: () {}` vazios para `onEditTap` e `onDeleteTap`. Ex:
+- [x] **3.1 Widget Básico - `TransactionListItem`:**
+  - [x] Criar `lib/widgets/transaction_list_item.dart`.
+  - [x] Implementar `TransactionListItem` como `StatelessWidget`.
+  - [x] Adicionar construtor: `const TransactionListItem({ super.key, required this.title, required this.amount, required this.date, required this.onEditTap, required this.onDeleteTap });`. Campos `final`.
+  - [x] Adicionar parâmetros: `final String title`, `final String amount` (String formatada por agora), `final String date` (String formatada), `final VoidCallback onEditTap`, `final VoidCallback onDeleteTap`.
+  - [x] No `build`, retornar um `Card` envolvendo um `ListTile`.
+  - [x] Configurar `ListTile`:
+    - [x] `title: Text(title)`.
+    - [x] `subtitle: Text(date)`.
+    - [x] `leading: CircleAvatar(child: Icon(Icons.attach_money))` (Exemplo).
+    - [x] `trailing: Row(mainAxisSize: MainAxisSize.min, children: [ Text(amount), IconButton(icon: Icon(Icons.edit), onPressed: onEditTap), IconButton(icon: Icon(Icons.delete, color: Colors.red), onPressed: onDeleteTap) ])`. Ajustar layout/estilo conforme necessário.
+- [x] **3.2 (Opcional, mas Recomendado) Widget Básico - `BalanceDisplay`:**
+  - [x] Criar `lib/widgets/balance_display.dart`.
+  - [x] Implementar como `StatelessWidget`.
+  - [x] Adicionar construtor: `const BalanceDisplay({ super.key, required this.totalBalance, required this.availableBalance });`. Campos `final`.
+  - [x] Adicionar parâmetros: `final String totalBalance`, `final String availableBalance` (Strings formatadas).
+  - [x] No `build`, retornar um `Card` ou `Padding` contendo uma `Column` (ou `Row`) com dois `Text` widgets para exibir os saldos com `Labels` (e.g., "Saldo Total:", "Disponível:"). Aplicar estilos do tema.
+- [x] **3.3 Integrar Widgets Básicos no `MainScreen`:**
+
+  - [x] Em `main_screen.dart`, importar os novos widgets (`transaction_list_item.dart`, `balance_display.dart` se criado).
+  - [x] Substituir o placeholder de saldos pelo `BalanceDisplay` (passando strings hardcoded como `"€ 1000.00"`, `"€ 500.50"`).
+  - [x] No `ListView`, substituir os `ListTile`s hardcoded por alguns `TransactionListItem`s. Passar dados hardcoded e `onPressed: () {}` vazios para `onEditTap` e `onDeleteTap`. Ex:
     ```dart
     TransactionListItem(
       title: 'Supermercado',
@@ -142,7 +143,30 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
       onDeleteTap: () { print('Delete tapped'); },
     ),
     ```
-  - [ ] Executar e verificar a aparência visual atualizada do `MainScreen`.
+  - [x] Executar e verificar a aparência visual atualizada do `MainScreen`.
+
+- [x] **3.4 Widget Adicional - `DateSelector`:**
+
+  - [x] Criar `lib/widgets/date_selector.dart`.
+  - [x] Implementar como `StatelessWidget`.
+  - [x] Adicionar construtor com parâmetros: `selectedDate`, `onDateSelected` e `labelText`.
+  - [x] Implementar seletor de data com `showDatePicker` e formatação consistente.
+  - [x] Integrar o widget no `TransactionScreen`.
+
+- [x] **3.5 Widget Adicional - `AmountInput`:**
+
+  - [x] Criar `lib/widgets/amount_input.dart`.
+  - [x] Implementar como `StatelessWidget`.
+  - [x] Adicionar construtor com parâmetros: `controller`, `labelText`, `currencySymbol`, `onChanged` e `validator`.
+  - [x] Implementar formatação e validação para valores monetários.
+  - [x] Integrar o widget no `TransactionScreen`.
+
+- [x] **3.6 Widget Adicional - `ConfirmationDialog`:**
+  - [x] Criar `lib/widgets/confirmation_dialog.dart`.
+  - [x] Implementar como classe utilitária com método estático `show`.
+  - [x] Adicionar parâmetros: `title`, `content`, `confirmLabel`, `cancelLabel`, `isDestructive` e `onConfirm`.
+  - [x] Implementar diálogo de confirmação com opções de confirmar e cancelar.
+  - [x] Integrar o widget no `MainScreen` para confirmação de exclusão de transações.
 
 **Fase 4: Modelo de Dados e Interface do Storage (Sem Implementação Completa)**
 
