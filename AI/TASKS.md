@@ -162,11 +162,35 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
   - [x] Integrar o widget no `TransactionScreen`.
 
 - [x] **3.6 Widget Adicional - `ConfirmationDialog`:**
+
   - [x] Criar `lib/widgets/confirmation_dialog.dart`.
   - [x] Implementar como classe utilitária com método estático `show`.
   - [x] Adicionar parâmetros: `title`, `content`, `confirmLabel`, `cancelLabel`, `isDestructive` e `onConfirm`.
   - [x] Implementar diálogo de confirmação com opções de confirmar e cancelar.
   - [x] Integrar o widget no `MainScreen` para confirmação de exclusão de transações.
+
+- [x] **3.7 Widget Adicional - `CustomAppBar`:**
+
+  - [x] Criar `lib/widgets/custom_app_bar.dart`.
+  - [x] Implementar como `StatelessWidget` que implementa `PreferredSizeWidget`.
+  - [x] Adicionar parâmetros: `title`, `actions`, `showBackButton` e `onBackPressed`.
+  - [x] Implementar AppBar personalizada com estilo Material 3 e SafeArea.
+  - [x] Integrar o widget em todas as telas da aplicação.
+
+- [x] **3.8 Widget Adicional - `SearchField`:**
+
+  - [x] Criar `lib/widgets/search_field.dart`.
+  - [x] Implementar como `StatelessWidget`.
+  - [x] Adicionar parâmetros: `controller`, `onChanged`, `hintText`, `labelText`, etc.
+  - [x] Implementar campo de pesquisa com ícone e botão para limpar.
+  - [x] Integrar o widget no `MainScreen` para filtrar transações.
+
+- [x] **3.9 Widget Adicional - `EmptyStateWidget`:**
+  - [x] Criar `lib/widgets/empty_state_widget.dart`.
+  - [x] Implementar como `StatelessWidget`.
+  - [x] Adicionar parâmetros: `icon`, `message`, `subMessage`, `actionLabel` e `onAction`.
+  - [x] Implementar estado vazio com ícone, mensagens e botão de ação opcional.
+  - [x] Integrar o widget no `MainScreen` para exibir quando não há transações.
 
 **Fase 4: Modelo de Dados e Interface do Storage (Sem Implementação Completa)**
 

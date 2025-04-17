@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/date_selector.dart';
 import '../widgets/amount_input.dart';
+import '../widgets/custom_app_bar.dart';
 
 class TransactionScreen extends StatefulWidget {
   final bool isEditing;
@@ -32,11 +33,12 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.isEditing ? 'Editar Transação' : 'Adicionar Transação',
-        ),
+      backgroundColor: colorScheme.surface,
+      appBar: CustomAppBar(
+        title: widget.isEditing ? 'Editar Transação' : 'Adicionar Transação',
+        showBackButton: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
