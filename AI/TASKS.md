@@ -289,50 +289,50 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
     - [x] Mover o `build` para `_TransactionScreenState`.
     - [x] Remover o parâmetro `isEditing` do construtor do Widget (será gerido no State).
     - [x] Adicionar variáveis de estado em `_TransactionScreenState`: `final _formKey = GlobalKey<FormState>();`, `final _titleController = TextEditingController();`, `final _amountController = TextEditingController();`, `DateTime? _selectedDate;`, `bool _isEditing = false;`.
-- [ ] **5.4 Carregar Dados no `MainScreen`:**
-  - [ ] Em `_MainScreenState`:
-    - [ ] Implementar `initState()`:
+- [x] **5.4 Carregar Dados no `MainScreen`:**
+  - [x] Em `_MainScreenState`:
+    - [x] Implementar `initState()`:
       - `super.initState();`
       - Inicializar `_filterController`.
       - Adicionar listener ao `_filterController` para chamar `_filterTransactions()`.
       - Chamar uma nova função `_loadData()`.
-    - [ ] Implementar `dispose()`:
+    - [x] Implementar `dispose()`:
       - Descartar `_filterController`.
       - `super.dispose();`
-    - [ ] Implementar `Future<void> _loadData()`:
+    - [x] Implementar `Future<void> _loadData()`:
       - `if (!mounted) return; setState(() { _isLoading = true; });`
       - Carregar dados: `_totalBalance = await StorageHelper.loadTotalBalance();`, `_allTransactions = await StorageHelper.loadTransactions();`.
       - Calcular `_availableBalance`: `_totalBalance - _allTransactions.fold(0.0, (sum, item) => sum + item.quantia);`
       - Inicializar `_filteredTransactions = _allTransactions;` (ou aplicar filtro existente).
       - Chamar `_filterTransactions()` para aplicar o filtro inicial se houver texto no controller.
       - `if (!mounted) return; setState(() { _isLoading = false; });`
-  - [ ] No método `build` de `_MainScreenState`:
-    - [ ] Usar `_isLoading` para mostrar um `CircularProgressIndicator` centrado se for `true`, caso contrário mostrar o `Column` principal.
-    - [ ] Passar valores reais (`_totalBalance`, `_availableBalance` formatados) para `BalanceDisplay`. (Usar `intl` aqui se adicionado).
-    - [ ] Ligar `_filterController` ao `TextField` de filtro.
-    - [ ] Usar `_filteredTransactions` no `ListView.builder`.
-    - [ ] Configurar `itemCount` e `itemBuilder` do `ListView.builder`.
-    - [ ] No `itemBuilder`, criar `TransactionListItem` passando dados da `_filteredTransactions[index]` e ligando `onEditTap` e `onDeleteTap` a novas funções (`_editTransaction`, `_deleteTransaction`). (Formatar dados aqui se usar `intl`).
-- [ ] **5.5 Implementar Lógica do Formulário (`TransactionScreen`):**
-  - [ ] Em `_TransactionScreenState`:
-    - [ ] Implementar `initState()`:
+  - [x] No método `build` de `_MainScreenState`:
+    - [x] Usar `_isLoading` para mostrar um `CircularProgressIndicator` centrado se for `true`, caso contrário mostrar o `Column` principal.
+    - [x] Passar valores reais (`_totalBalance`, `_availableBalance` formatados) para `BalanceDisplay`. (Usar `intl` aqui se adicionado).
+    - [x] Ligar `_filterController` ao `TextField` de filtro.
+    - [x] Usar `_filteredTransactions` no `ListView.builder`.
+    - [x] Configurar `itemCount` e `itemBuilder` do `ListView.builder`.
+    - [x] No `itemBuilder`, criar `TransactionListItem` passando dados da `_filteredTransactions[index]` e ligando `onEditTap` e `onDeleteTap` a novas funções (`_editTransaction`, `_deleteTransaction`). (Formatar dados aqui se usar `intl`).
+- [x] **5.5 Implementar Lógica do Formulário (`TransactionScreen`):**
+  - [x] Em `_TransactionScreenState`:
+    - [x] Implementar `initState()`:
       - `super.initState();`
       - Verificar se `widget.existingTransaction != null`. Se sim:
         - Definir `_isEditing = true`.
         - Preencher `_titleController.text`, `_amountController.text` (formatado), e `_selectedDate` com os dados de `widget.existingTransaction`.
       - Se não, inicializar `_selectedDate = DateTime.now();`.
-    - [ ] Implementar `dispose()`: Descartar `_titleController`, `_amountController`.
-    - [ ] Implementar `Future<void> _presentDatePicker()`:
+    - [x] Implementar `dispose()`: Descartar `_titleController`, `_amountController`.
+    - [x] Implementar `Future<void> _presentDatePicker()`:
       - Chamar `showDatePicker`, obter a data selecionada.
       - Se uma data for selecionada, `setState(() { _selectedDate = pickedDate; });`.
-    - [ ] Ligar `_presentDatePicker` ao `onPressed` do botão "Selecionar Data".
-    - [ ] Exibir a `_selectedDate` formatada no `Text` ao lado do botão (usar `intl` se disponível).
-    - [ ] Ligar `_titleController` e `_amountController` aos respetivos `TextFormField`s.
-    - [ ] Ligar `_formKey` ao `Form` widget que deve envolver os campos.
-    - [ ] Adicionar `validator` aos `TextFormField`s:
+    - [x] Ligar `_presentDatePicker` ao `onPressed` do botão "Selecionar Data".
+    - [x] Exibir a `_selectedDate` formatada no `Text` ao lado do botão (usar `intl` se disponível).
+    - [x] Ligar `_titleController` e `_amountController` aos respetivos `TextFormField`s.
+    - [x] Ligar `_formKey` ao `Form` widget que deve envolver os campos.
+    - [x] Adicionar `validator` aos `TextFormField`s:
       - Título: Verificar se não está vazio (`value?.isEmpty ?? true`).
       - Quantia: Verificar se não está vazio, se `double.tryParse` não retorna `null`, e se o valor é > 0.
-    - [ ] Implementar `Future<void> _submitData()`:
+    - [x] Implementar `Future<void> _submitData()`:
       - Validar o formulário: `if (!(_formKey.currentState?.validate() ?? false)) { return; }`
       - Se validado, ler valores dos controllers. Usar `double.tryParse(_amountController.text)` para a quantia. Verificar se `_selectedDate` não é nulo.
       - Mostrar indicador de progresso (opcional).
@@ -348,25 +348,25 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
       - Se `mounted`, chamar `Navigator.pop(context, true);` (passar `true` para indicar sucesso/alteração).
       - Esconder indicador de progresso (opcional).
       - Adicionar tratamento de erro básico (`try-catch`) em volta da lógica de salvar/carregar.
-    - [ ] Ligar `_submitData` ao `onPressed` do botão "Guardar".
-- [ ] **5.6 Implementar Funcionalidades Restantes no `MainScreen`:**
-  - [ ] **Lógica de Filtragem:**
-    - [ ] Implementar `void _filterTransactions()`:
+    - [x] Ligar `_submitData` ao `onPressed` do botão "Guardar".
+- [x] **5.6 Implementar Funcionalidades Restantes no `MainScreen`:**
+  - [x] **Lógica de Filtragem:**
+    - [x] Implementar `void _filterTransactions()`:
       - Obter o texto do filtro: `final query = _filterController.text.toLowerCase();`.
       - Filtrar `_allTransactions`: `final filtered = _allTransactions.where((tx) => tx.titulo.toLowerCase().contains(query)).toList();`
       - `setState(() { _filteredTransactions = filtered; });`
       - (Opcional: filtrar também por data ou quantia se desejado).
-  - [ ] **Navegação para Adicionar/Editar:**
-    - [ ] Modificar `onPressed` do FAB para chamar uma função `_navigateToAddTransaction()`.
-    - [ ] Implementar `void _navigateToAddTransaction()`:
+  - [x] **Navegação para Adicionar/Editar:**
+    - [x] Modificar `onPressed` do FAB para chamar uma função `_navigateToAddTransaction()`.
+    - [x] Implementar `void _navigateToAddTransaction()`:
       - `final result = await Navigator.push(...)` (Navega para `TransactionScreen(existingTransaction: null)`).
       - `if (result == true && mounted) { _loadData(); }` // Recarrega se algo foi salvo.
-    - [ ] Implementar `void _editTransaction(Transacao transaction)`:
+    - [x] Implementar `void _editTransaction(Transacao transaction)`:
       - `final result = await Navigator.push(...)` (Navega para `TransactionScreen(existingTransaction: transaction)`).
       - `if (result == true && mounted) { _loadData(); }` // Recarrega se algo foi salvo.
-    - [ ] Passar `_editTransaction` para o `onEditTap` do `TransactionListItem` no `itemBuilder`.
-  - [ ] **Lógica de Remoção:**
-    - [ ] Implementar `Future<void> _deleteTransaction(String id)`:
+    - [x] Passar `_editTransaction` para o `onEditTap` do `TransactionListItem` no `itemBuilder`.
+  - [x] **Lógica de Remoção:**
+    - [x] Implementar `Future<void> _deleteTransaction(String id)`:
       - Mostrar um `AlertDialog` de confirmação (`showDialog`).
       - Se o utilizador confirmar:
         - Carregar transações: `List<Transacao> transactions = await StorageHelper.loadTransactions();`
@@ -374,9 +374,9 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
         - Salvar a lista atualizada: `await StorageHelper.saveTransactions(transactions);`
         - Se `mounted`, chamar `_loadData()` para atualizar a UI.
       - Adicionar `try-catch`.
-    - [ ] Passar `_deleteTransaction` para o `onDeleteTap` do `TransactionListItem` no `itemBuilder`, passando o `id` da transação.
-  - [ ] **Lógica de Editar Saldo Total:**
-    - [ ] Implementar `Future<void> _showEditTotalBalanceDialog()`:
+    - [x] Passar `_deleteTransaction` para o `onDeleteTap` do `TransactionListItem` no `itemBuilder`, passando o `id` da transação.
+  - [x] **Lógica de Editar Saldo Total:**
+    - [x] Implementar `Future<void> _showEditTotalBalanceDialog()`:
       - Criar um `TextEditingController` para o diálogo.
       - Mostrar um `AlertDialog` com um `TextField` (numérico) para o novo saldo.
       - No botão "Guardar" do diálogo:
@@ -386,25 +386,3 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
         - Se `mounted`, chamar `_loadData()` para atualizar.
       - Ligar `_showEditTotalBalanceDialog` ao `onPressed` do `IconButton` na `AppBar`.
 
-**Fase 6: Refinamento e Testes**
-
-- [ ] **6.1 Adicionar Formatação (`intl`):**
-  - [ ] Se `intl` foi adicionado, importar `package:intl/intl.dart` onde necessário (`main_screen.dart`, `transaction_screen.dart`, `transaction_list_item.dart`).
-  - [ ] Inicializar `intl` (se necessário, para locales específicos, embora para formatos padrão muitas vezes não precise de inicialização explícita).
-  - [ ] Formatar datas: Usar `DateFormat('dd/MM/yyyy').format(dateTimeObject)` (ou outro formato).
-  - [ ] Formatar quantias: Usar `NumberFormat.currency(locale: 'pt_PT', symbol: '€').format(doubleValue)`.
-  - [ ] Aplicar formatação nos locais onde datas e quantias são exibidas (`TransactionListItem`, `BalanceDisplay`, `TransactionScreen`).
-- [ ] **6.2 Testes Funcionais Completos:**
-  - [ ] Executar a aplicação em emulador/dispositivo.
-  - [ ] Testar Adicionar transação (com validação).
-  - [ ] Testar Editar transação (verificar preenchimento e salvamento).
-  - [ ] Testar Remover transação (com confirmação).
-  - [ ] Testar Filtrar transações (por título).
-  - [ ] Testar Editar Saldo Total.
-  - [ ] Testar persistência: Fechar e reabrir a app, verificar se os dados (transações, saldo total) são carregados corretamente.
-  - [ ] Testar casos limite: Nenhuma transação, filtro que não encontra nada, valores inválidos no formulário.
-  - [ ] Verificar se o Saldo Disponível é calculado e atualizado corretamente após cada operação.
-- [ ] **6.3 Revisão de Código e Usabilidade:**
-  - [ ] Rever o código: Clareza, organização, comentários onde necessário, remoção de código morto ou `print`s de debug desnecessários.
-  - [ ] Executar `dart format .` e `flutter analyze` para garantir conformidade.
-  - [ ] Avaliar a UI/UX: A navegação é intuitiva? A informação está clara? Os botões são fáceis de usar? Há feedback visual suficiente (e.g., `isLoading`)?

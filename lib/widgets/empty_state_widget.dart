@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// Widget reutilizável para exibir um estado vazio de forma amigável.
-/// 
+///
 /// Exibe um ícone, uma mensagem principal, uma mensagem secundária opcional
 /// e um botão de ação opcional. Utiliza o tema da aplicação para manter
 /// a consistência visual.
@@ -40,7 +40,7 @@ class EmptyStateWidget extends StatelessWidget {
               color: colorScheme.primary.withAlpha((0.7 * 255).round()),
             ),
             const SizedBox(height: 24),
-            
+
             // Mensagem principal
             Text(
               message,
@@ -50,7 +50,7 @@ class EmptyStateWidget extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            
+
             // Mensagem secundária (opcional)
             if (subMessage != null) ...[
               const SizedBox(height: 8),
@@ -62,21 +62,15 @@ class EmptyStateWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ],
-            
+
             // Botão de ação (opcional)
             if (actionLabel != null && onAction != null) ...[
               const SizedBox(height: 24),
-              ElevatedButton.icon(
-                onPressed: onAction,
-                icon: const Icon(Icons.add_rounded),
-                label: Text(actionLabel!),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: colorScheme.primary,
-                  foregroundColor: colorScheme.onPrimary,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 12,
-                  ),
+              Tooltip(
+                message: actionLabel!,
+                child: FloatingActionButton(
+                  onPressed: onAction,
+                  child: const Icon(Icons.add_card),
                 ),
               ),
             ],
@@ -86,4 +80,3 @@ class EmptyStateWidget extends StatelessWidget {
     );
   }
 }
-

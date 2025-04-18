@@ -24,8 +24,10 @@ class _MainScreenState extends State<MainScreen> {
   // Dados
   List<Transacao> _allTransactions = [];
   List<Transacao> _filteredTransactions = [];
-  double _totalBalance = 0.0;
-  double _availableBalance = 0.0;
+  double _initialBalance = 0.0; // Saldo inicial definido pelo usuário
+  double _currentBalance = 0.0; // Saldo atual (considera transações até hoje)
+  double _projectedBalance =
+      0.0; // Saldo projetado (considera todas as transações)
 
   // Estados
   bool _isLoading = true;
@@ -61,17 +63,38 @@ class _MainScreenState extends State<MainScreen> {
 
     try {
       // Carregar dados do StorageHelper
-      _totalBalance = await StorageHelper.loadTotalBalance();
+      _initialBalance = await StorageHelper.loadInitialBalance();
       _allTransactions = await StorageHelper.loadTransactions();
 
-      // Calcular saldo disponível (total - soma das despesas)
-      _availableBalance =
-          _totalBalance -
-          _allTransactions.fold(
-            0.0,
-            (sum, transaction) =>
-                sum + (transaction.quantia < 0 ? -transaction.quantia : 0),
-          );
+      // Data atual para comparação
+      final now = DateTime.now();
+      final today = DateTime(
+        now.year,
+        now.month,
+        now.day,
+      ); // Apenas a data, sem hora
+
+      // Filtrar transações passadas e presentes (até hoje)
+      final pastOrPresentTransactions =
+          _allTransactions.where((tx) => !tx.data.isAfter(today)).toList();
+
+      // Filtrar transações futuras (após hoje)
+      final futureTransactions =
+          _allTransactions.where((tx) => tx.data.isAfter(today)).toList();
+
+      // Calcular saldo atual (considera apenas transações até hoje)
+      final somaPastOrPresent = pastOrPresentTransactions.fold(
+        0.0,
+        (sum, tx) => sum + tx.quantia,
+      );
+      _currentBalance = _initialBalance + somaPastOrPresent;
+
+      // Calcular saldo projetado (considera todas as transações)
+      final somaFuture = futureTransactions.fold(
+        0.0,
+        (sum, tx) => sum + tx.quantia,
+      );
+      _projectedBalance = _currentBalance + somaFuture;
 
       // Inicializar transações filtradas com todas as transações
       _filteredTransactions = List.from(_allTransactions);
@@ -161,6 +184,23 @@ class _MainScreenState extends State<MainScreen> {
           // Carregar transações atuais
           List<Transacao> transactions = await StorageHelper.loadTransactions();
 
+          // Verificar se há transações
+          if (transactions.isEmpty) {
+            if (mounted) {
+              _showSnackBar('Não há transações para excluir');
+            }
+            return;
+          }
+
+          // Verificar se a transação existe
+          final index = transactions.indexWhere((tx) => tx.id == id);
+          if (index == -1) {
+            if (mounted) {
+              _showSnackBar('Transação não encontrada');
+            }
+            return;
+          }
+
           // Remover a transação com o ID correspondente
           transactions.removeWhere((tx) => tx.id == id);
 
@@ -181,15 +221,15 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  // Método para mostrar diálogo de edição do saldo total
-  void _showEditTotalBalanceDialog() {
+  // Método para mostrar diálogo de edição do saldo inicial
+  void _showEditInitialBalanceDialog() {
     if (!mounted) return;
 
     InputDialog.show(
       context: context,
-      title: 'Editar Saldo Total',
-      labelText: 'Novo Saldo',
-      initialValue: _totalBalance.toString(),
+      title: 'Editar Saldo Inicial',
+      labelText: 'Saldo Inicial',
+      initialValue: _initialBalance.toString(),
       keyboardType: TextInputType.number,
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -209,10 +249,11 @@ class _MainScreenState extends State<MainScreen> {
           // Usar um Future.microtask para garantir que o diálogo seja fechado completamente
           Future.microtask(() async {
             try {
-              await StorageHelper.saveTotalBalance(newBalance);
+              await StorageHelper.saveInitialBalance(newBalance);
+              _initialBalance = newBalance; // Atualizar o saldo inicial
               if (mounted) {
                 _loadData();
-                _showSnackBar('Saldo atualizado');
+                _showSnackBar('Saldo inicial atualizado');
               }
             } catch (e) {
               if (mounted) {
@@ -238,6 +279,35 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
+  // Método para limpar todos os dados armazenados
+  Future<void> _clearAllData() async {
+    // Mostrar diálogo de confirmação
+    ConfirmationDialog.show(
+      context,
+      title: 'Limpar Todos os Dados',
+      content:
+          'Tem certeza que deseja limpar todos os dados? Esta ação não pode ser desfeita.',
+      confirmLabel: 'Limpar',
+      isDestructive: true,
+      onConfirm: () async {
+        try {
+          // Limpar todos os dados
+          await StorageHelper.clearAllData();
+
+          // Recarregar dados
+          if (mounted) {
+            _loadData();
+            _showSnackBar('Todos os dados foram limpos com sucesso');
+          }
+        } catch (e) {
+          if (mounted) {
+            _showSnackBar('Erro ao limpar dados: $e');
+          }
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -246,15 +316,27 @@ class _MainScreenState extends State<MainScreen> {
       appBar: CustomAppBar(
         title: 'Gestor de Gastos',
         actions: [
-          IconButton(
-            icon: const Icon(Icons.account_balance_wallet),
-            style: IconButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.primary,
-              backgroundColor: Theme.of(
-                context,
-              ).colorScheme.primaryContainer.withAlpha(26),
+          // Botão para editar o saldo inicial
+          Tooltip(
+            message: 'Editar saldo inicial',
+            child: IconButton(
+              icon: const Icon(Icons.savings),
+              style: IconButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.primaryContainer.withAlpha(26),
+              ),
+              onPressed: _showEditInitialBalanceDialog,
             ),
-            onPressed: _showEditTotalBalanceDialog,
+          ),
+          // Botão para limpar todos os dados (apenas para desenvolvimento)
+          IconButton(
+            icon: const Icon(Icons.delete_forever),
+            style: IconButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            onPressed: _clearAllData,
           ),
         ],
       ),
@@ -267,9 +349,9 @@ class _MainScreenState extends State<MainScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BalanceDisplay(
-                      totalBalance: '€ ${_totalBalance.toStringAsFixed(2)}',
-                      availableBalance:
-                          '€ ${_availableBalance.toStringAsFixed(2)}',
+                      currentBalance: '€ ${_currentBalance.toStringAsFixed(2)}',
+                      projectedBalance:
+                          '€ ${_projectedBalance.toStringAsFixed(2)}',
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
@@ -326,7 +408,8 @@ class _MainScreenState extends State<MainScreen> {
           _hasTransactions
               ? FloatingActionButton(
                 onPressed: _navigateToAddTransaction,
-                child: const Icon(Icons.add),
+                tooltip: 'Adicionar Transação',
+                child: const Icon(Icons.add_card),
               )
               : null, // Não mostrar o botão quando não há transações
     );

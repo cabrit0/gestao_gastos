@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class BalanceDisplay extends StatelessWidget {
-  final String totalBalance;
-  final String availableBalance;
+  final String currentBalance;
+  final String projectedBalance;
 
   const BalanceDisplay({
     super.key,
-    required this.totalBalance,
-    required this.availableBalance,
+    required this.currentBalance,
+    required this.projectedBalance,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Card(
       elevation: 3,
       margin: const EdgeInsets.only(bottom: 16),
@@ -25,12 +25,16 @@ class BalanceDisplay extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Saldo Total:',
-                  style: theme.textTheme.titleMedium,
+                Tooltip(
+                  message:
+                      'Saldo atual considerando apenas transações até a data de hoje',
+                  child: Text(
+                    'Saldo Atual:',
+                    style: theme.textTheme.titleMedium,
+                  ),
                 ),
                 Text(
-                  totalBalance,
+                  currentBalance,
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: theme.colorScheme.primary,
@@ -42,12 +46,16 @@ class BalanceDisplay extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Saldo Disponível:',
-                  style: theme.textTheme.titleMedium,
+                Tooltip(
+                  message:
+                      'Saldo projetado considerando todas as transações futuras',
+                  child: Text(
+                    'Saldo Projetado:',
+                    style: theme.textTheme.titleMedium,
+                  ),
                 ),
                 Text(
-                  availableBalance,
+                  projectedBalance,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: _getAvailableBalanceColor(context),
@@ -61,10 +69,10 @@ class BalanceDisplay extends StatelessWidget {
     );
   }
 
-  // Determina a cor do saldo disponível com base no valor
+  // Determina a cor do saldo projetado com base no valor
   Color _getAvailableBalanceColor(BuildContext context) {
-    // Se o saldo disponível começar com '-', é negativo
-    if (availableBalance.startsWith('-')) {
+    // Se o saldo projetado começar com '-', é negativo
+    if (projectedBalance.startsWith('-')) {
       return Theme.of(context).colorScheme.error;
     }
     // Caso contrário, é positivo ou zero

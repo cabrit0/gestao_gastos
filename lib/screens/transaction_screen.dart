@@ -25,6 +25,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
   // Dados
   DateTime? _selectedDate;
   bool _isEditing = false;
+  bool _isExpense = true; // Por padrão, é uma despesa
 
   @override
   void initState() {
@@ -34,11 +35,18 @@ class _TransactionScreenState extends State<TransactionScreen> {
     if (widget.existingTransaction != null) {
       _isEditing = true;
       _titleController.text = widget.existingTransaction!.titulo;
-      _amountController.text = widget.existingTransaction!.quantia.toString();
+
+      // Determinar se é despesa ou ganho com base no valor
+      final quantia = widget.existingTransaction!.quantia;
+      _isExpense = quantia < 0;
+
+      // Sempre mostrar o valor positivo no campo
+      _amountController.text = quantia.abs().toString();
       _selectedDate = widget.existingTransaction!.data;
     } else {
       // Inicializar com a data atual para nova transação
       _selectedDate = DateTime.now();
+      _isExpense = true; // Por padrão, é uma despesa
     }
   }
 
@@ -65,12 +73,19 @@ class _TransactionScreenState extends State<TransactionScreen> {
     }
 
     // Converter a quantia para double
-    final double? quantia = double.tryParse(_amountController.text);
+    double? quantia = double.tryParse(_amountController.text);
     if (quantia == null) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Quantia inválida')));
       return;
+    }
+
+    // Se for uma despesa, tornar o valor negativo
+    if (_isExpense) {
+      quantia = -quantia.abs(); // Garantir que seja negativo
+    } else {
+      quantia = quantia.abs(); // Garantir que seja positivo
     }
 
     // Mostrar indicador de progresso
@@ -159,6 +174,38 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     }
                     return null;
                   },
+                ),
+                const SizedBox(height: 16),
+                // Seletor de tipo de transação (Despesa/Ganho)
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile<bool>(
+                        title: const Text('Despesa'),
+                        value: true,
+                        groupValue: _isExpense,
+                        onChanged: (value) {
+                          setState(() {
+                            _isExpense = value!;
+                          });
+                        },
+                        activeColor: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<bool>(
+                        title: const Text('Ganho'),
+                        value: false,
+                        groupValue: _isExpense,
+                        onChanged: (value) {
+                          setState(() {
+                            _isExpense = value!;
+                          });
+                        },
+                        activeColor: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 16),
                 AmountInput(
