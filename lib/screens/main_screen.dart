@@ -401,6 +401,21 @@ class _MainScreenState extends State<MainScreen> {
                                 onAction: _navigateToAddTransaction,
                               ),
                     ),
+                    // Footer discreto
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Center(
+                        child: Text(
+                          'Codificado com ❤️ por cabrit0',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Theme.of(context).colorScheme.onSurface
+                                .withAlpha(102), // 0.4 * 255 = 102
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
