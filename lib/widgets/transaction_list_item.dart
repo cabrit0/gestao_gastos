@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class TransactionListItem extends StatelessWidget {
   final String title;
@@ -21,9 +22,9 @@ class TransactionListItem extends StatelessWidget {
     // Determinar se é uma despesa (valor negativo) ou receita (valor positivo)
     final bool isExpense = amount.startsWith('-');
 
-    // Usar cores do tema para diferenciar despesas e receitas
+    // Usar cores específicas para diferenciar despesas e receitas
     final Color amountColor =
-        isExpense ? Theme.of(context).colorScheme.error : Colors.green;
+        isExpense ? AppTheme.expenseColor : AppTheme.incomeColor;
 
     return Card(
       elevation: 2,
@@ -32,12 +33,15 @@ class TransactionListItem extends StatelessWidget {
         title: Text(title, style: Theme.of(context).textTheme.titleMedium),
         subtitle: Text(date, style: Theme.of(context).textTheme.bodySmall),
         leading: CircleAvatar(
-          backgroundColor: Theme.of(
-            context,
-          ).colorScheme.primary.withOpacity(0.8),
+          backgroundColor:
+              isExpense
+                  ? AppTheme.expenseColor.withAlpha(204) // 0.8 * 255 = 204
+                  : AppTheme.incomeColor.withAlpha(204),
           child: Icon(
-            isExpense ? Icons.remove : Icons.add,
-            color: Theme.of(context).colorScheme.onPrimary,
+            isExpense
+                ? Icons.arrow_downward_rounded
+                : Icons.arrow_upward_rounded,
+            color: Colors.white,
           ),
         ),
         trailing: Row(
