@@ -38,6 +38,26 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  // Variável para armazenar a referência do SnackBar atual
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason>? _currentSnackBar;
+
+  // Método para mostrar SnackBar cancelando o anterior se existir
+  void _showSnackBar(String message) {
+    // Fecha o SnackBar atual se existir
+    _currentSnackBar?.close();
+
+    // Mostra o novo SnackBar e armazena sua referência
+    _currentSnackBar = ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -89,11 +109,7 @@ class _MainScreenState extends State<MainScreen> {
                             date: '15/04/2024',
                             onEditTap: () {
                               // Navegar para a tela de edição (implementação futura)
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Editar Supermercado'),
-                                ),
-                              );
+                              _showSnackBar('Editar Supermercado');
                             },
                             onDeleteTap: () {
                               ConfirmationDialog.show(
@@ -105,11 +121,7 @@ class _MainScreenState extends State<MainScreen> {
                                 isDestructive: true,
                                 onConfirm: () {
                                   // Aqui seria implementada a lógica para excluir a transação
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Transação excluída'),
-                                    ),
-                                  );
+                                  _showSnackBar('Transação excluída');
                                 },
                               );
                             },
@@ -120,11 +132,7 @@ class _MainScreenState extends State<MainScreen> {
                             date: '12/04/2024',
                             onEditTap: () {
                               // Navegar para a tela de edição (implementação futura)
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Editar Combustível'),
-                                ),
-                              );
+                              _showSnackBar('Editar Combustível');
                             },
                             onDeleteTap: () {
                               ConfirmationDialog.show(
@@ -136,11 +144,7 @@ class _MainScreenState extends State<MainScreen> {
                                 isDestructive: true,
                                 onConfirm: () {
                                   // Aqui seria implementada a lógica para excluir a transação
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Transação excluída'),
-                                    ),
-                                  );
+                                  _showSnackBar('Transação excluída');
                                 },
                               );
                             },
@@ -151,9 +155,7 @@ class _MainScreenState extends State<MainScreen> {
                             date: '01/04/2024',
                             onEditTap: () {
                               // Navegar para a tela de edição (implementação futura)
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Editar Salário')),
-                              );
+                              _showSnackBar('Editar Salário');
                             },
                             onDeleteTap: () {
                               ConfirmationDialog.show(
@@ -165,11 +167,7 @@ class _MainScreenState extends State<MainScreen> {
                                 isDestructive: true,
                                 onConfirm: () {
                                   // Aqui seria implementada a lógica para excluir a transação
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Transação excluída'),
-                                    ),
-                                  );
+                                  _showSnackBar('Transação excluída');
                                 },
                               );
                             },
