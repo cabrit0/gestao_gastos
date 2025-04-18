@@ -194,11 +194,11 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
 
 **Fase 4: Modelo de Dados e Interface do Storage (Sem Implementação Completa)**
 
-- [ ] **4.1 Definir Modelo `Transacao`:**
+- [x] **4.1 Definir Modelo `Transacao`:**
 
-  - [ ] Criar a pasta `lib/models` (se não existir).
-  - [ ] Criar `lib/models/transacao.dart`.
-  - [ ] Implementar a classe `Transacao` exatamente como no enunciado/`PLANNING.md`:
+  - [x] Criar a pasta `lib/models` (se não existir).
+  - [x] Criar `lib/models/transacao.dart`.
+  - [x] Implementar a classe `Transacao` exatamente como no enunciado/`PLANNING.md`:
 
     ```dart
     class Transacao {
@@ -218,13 +218,13 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
     }
     ```
 
-- [ ] **4.2 Definir Interface do `StorageHelper` (Assinaturas):**
+- [x] **4.2 Definir Interface do `StorageHelper` (Assinaturas):**
 
-  - [ ] Criar pasta `lib/helpers` (se não existir).
-  - [ ] Criar `lib/helpers/storage_helper.dart`.
-  - [ ] Adicionar import `../models/transacao.dart`.
-  - [ ] Definir a classe `StorageHelper`.
-  - [ ] Definir as **assinaturas exatas** dos métodos estáticos, mas com implementações vazias/padrão para que o código compile e a interface esteja definida:
+  - [x] Criar pasta `lib/helpers` (se não existir).
+  - [x] Criar `lib/helpers/storage_helper.dart`.
+  - [x] Adicionar import `../models/transacao.dart`.
+  - [x] Definir a classe `StorageHelper`.
+  - [x] Definir as **assinaturas exatas** dos métodos estáticos, mas com implementações vazias/padrão para que o código compile e a interface esteja definida:
 
     ```dart
     import '../models/transacao.dart';
