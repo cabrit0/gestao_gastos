@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/date_selector.dart';
 import '../widgets/amount_input.dart';
 import '../widgets/custom_app_bar.dart';
+import '../widgets/footer_widget.dart';
 import '../models/transacao.dart';
 import '../helpers/storage_helper.dart';
 
@@ -233,6 +234,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                     child: const Text('Guardar'),
                   ),
                 ),
+                const SizedBox(height: 24),
+                // Footer discreto
+                const FooterWidget(),
               ],
             ),
           ),

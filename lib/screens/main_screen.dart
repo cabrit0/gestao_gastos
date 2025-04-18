@@ -6,6 +6,7 @@ import '../widgets/confirmation_dialog.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/search_field.dart';
 import '../widgets/empty_state_widget.dart';
+import '../widgets/footer_widget.dart';
 import '../widgets/input_dialog.dart';
 import '../models/transacao.dart';
 import '../helpers/storage_helper.dart';
@@ -402,20 +403,7 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                     ),
                     // Footer discreto
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Center(
-                        child: Text(
-                          'Codificado com ❤️ por cabrit0',
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: Theme.of(context).colorScheme.onSurface
-                                .withAlpha(102), // 0.4 * 255 = 102
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      ),
-                    ),
+                    const FooterWidget(),
                   ],
                 ),
               ),
