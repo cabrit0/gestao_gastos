@@ -1,7 +1,4 @@
 /// Modelo de dados para representar uma transação financeira.
-///
-/// Cada transação possui um identificador único, título, quantia e data.
-/// A quantia pode ser positiva (receita) ou negativa (despesa).
 class Transacao {
   final String id;
   final String titulo;
@@ -15,5 +12,23 @@ class Transacao {
     required this.data,
   });
 
-  // Os métodos toJson e fromJson serão adicionados na Fase 5
+  // Converte a transação para um Map que pode ser armazenado como JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'titulo': titulo,
+      'quantia': quantia,
+      'data': data.toIso8601String(),
+    };
+  }
+
+  // Cria uma transação a partir de um Map (JSON)
+  static Transacao fromJson(Map<String, dynamic> json) {
+    return Transacao(
+      id: json['id'],
+      titulo: json['titulo'],
+      quantia: json['quantia'],
+      data: DateTime.parse(json['data']),
+    );
+  }
 }

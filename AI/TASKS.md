@@ -265,30 +265,30 @@ Acompanhe o progresso marcando as caixas de seleção (`- [x]`) à medida que ca
 
 **Fase 5: Implementar Lógica de Dados e Estado**
 
-- [ ] **5.1 Implementar `toJson`/`fromJson` no Modelo `Transacao`:**
-  - [ ] Abrir `lib/models/transacao.dart`.
-  - [ ] **Não** adicionar import `dart:convert` aqui (será usado no `StorageHelper`).
-  - [ ] Implementar o método `Map<String, dynamic> toJson()`: Deve converter `DateTime` para String (e.g., ISO 8601 `data.toIso8601String()`).
-  - [ ] Implementar o factory constructor `Transacao.fromJson(Map<String, dynamic> json)`: Deve converter a String da data de volta para `DateTime` (e.g., `DateTime.parse(json['data'])`) e `json['quantia']` para `double`.
-- [ ] **5.2 Implementar Lógica REAL do `StorageHelper`:**
-  - [ ] Abrir `lib/helpers/storage_helper.dart`.
-  - [ ] Adicionar imports: `dart:convert`, `package:shared_preferences/shared_preferences.dart`.
-  - [ ] Definir as constantes estáticas para as chaves (e.g., `_transactionsKey`, `_totalBalanceKey`).
-  - [ ] Implementar a lógica **real** dentro dos 4 métodos estáticos usando `SharedPreferences.getInstance()`, `getString`, `setString`, `getDouble`, `setDouble`.
-  - [ ] Em `saveTransactions`: Usar `jsonEncode` após mapear a lista de `Transacao` para `List<Map>`.
-  - [ ] Em `loadTransactions`: Usar `jsonDecode`, verificar se o resultado não é nulo, e mapear a `List<dynamic>` para `List<Transacao>` usando `Transacao.fromJson`.
-  - [ ] Adicionar `try-catch` robustos em volta das operações de `shared_preferences` e `jsonDecode`/`fromJson` para lidar com possíveis erros (e.g., dados corrompidos, tipo errado). Retornar valores padrão (lista vazia, 0.0) em caso de erro. Usar `print` para logar erros.
-- [ ] **5.3 Converter Ecrãs para `StatefulWidget` e Adicionar Estado:**
-  - [ ] Modificar `MainScreen` para ser um `StatefulWidget`.
-    - [ ] Criar `_MainScreenState extends State<MainScreen>`.
-    - [ ] Mover o método `build` para `_MainScreenState`.
-    - [ ] Adicionar variáveis de estado em `_MainScreenState`: `List<Transacao> _allTransactions = [];`, `List<Transacao> _filteredTransactions = [];`, `double _totalBalance = 0.0;`, `double _availableBalance = 0.0;`, `final TextEditingController _filterController = TextEditingController();`, `bool _isLoading = true;`.
-  - [ ] Modificar `TransactionScreen` para ser um `StatefulWidget`.
-    - [ ] Adicionar construtor que aceita `final Transacao? existingTransaction;`.
-    - [ ] Criar `_TransactionScreenState extends State<TransactionScreen>`.
-    - [ ] Mover o `build` para `_TransactionScreenState`.
-    - [ ] Remover o parâmetro `isEditing` do construtor do Widget (será gerido no State).
-    - [ ] Adicionar variáveis de estado em `_TransactionScreenState`: `final _formKey = GlobalKey<FormState>();`, `final _titleController = TextEditingController();`, `final _amountController = TextEditingController();`, `DateTime? _selectedDate;`, `bool _isEditing = false;`.
+- [x] **5.1 Implementar `toJson`/`fromJson` no Modelo `Transacao`:**
+  - [x] Abrir `lib/models/transacao.dart`.
+  - [x] **Não** adicionar import `dart:convert` aqui (será usado no `StorageHelper`).
+  - [x] Implementar o método `Map<String, dynamic> toJson()`: Deve converter `DateTime` para String (e.g., ISO 8601 `data.toIso8601String()`).
+  - [x] Implementar o método estático `Transacao.fromJson(Map<String, dynamic> json)`: Deve converter a String da data de volta para `DateTime` (e.g., `DateTime.parse(json['data'])`).
+- [x] **5.2 Implementar Lógica REAL do `StorageHelper`:**
+  - [x] Abrir `lib/helpers/storage_helper.dart`.
+  - [x] Adicionar imports: `dart:convert`, `package:shared_preferences/shared_preferences.dart`.
+  - [x] Definir as constantes estáticas para as chaves (e.g., `_transactionsKey`, `_totalBalanceKey`).
+  - [x] Implementar a lógica **real** dentro dos 4 métodos estáticos usando `SharedPreferences.getInstance()`, `getString`, `setString`, `getDouble`, `setDouble`.
+  - [x] Em `saveTransactions`: Usar `jsonEncode` após mapear a lista de `Transacao` para `List<Map>`.
+  - [x] Em `loadTransactions`: Usar `jsonDecode`, verificar se o resultado não é nulo, e mapear a `List<dynamic>` para `List<Transacao>` usando `Transacao.fromJson`.
+  - [x] Adicionar `try-catch` robustos em volta das operações de `shared_preferences` e `jsonDecode`/`fromJson` para lidar com possíveis erros (e.g., dados corrompidos, tipo errado). Retornar valores padrão (lista vazia, 0.0) em caso de erro. Usar `print` para logar erros.
+- [x] **5.3 Converter Ecrãs para `StatefulWidget` e Adicionar Estado:**
+  - [x] Modificar `MainScreen` para ser um `StatefulWidget`.
+    - [x] Criar `_MainScreenState extends State<MainScreen>`.
+    - [x] Mover o método `build` para `_MainScreenState`.
+    - [x] Adicionar variáveis de estado em `_MainScreenState`: `List<Transacao> _allTransactions = [];`, `List<Transacao> _filteredTransactions = [];`, `double _totalBalance = 0.0;`, `double _availableBalance = 0.0;`, `final TextEditingController _filterController = TextEditingController();`, `bool _isLoading = true;`.
+  - [x] Modificar `TransactionScreen` para ser um `StatefulWidget`.
+    - [x] Adicionar construtor que aceita `final Transacao? existingTransaction;`.
+    - [x] Criar `_TransactionScreenState extends State<TransactionScreen>`.
+    - [x] Mover o `build` para `_TransactionScreenState`.
+    - [x] Remover o parâmetro `isEditing` do construtor do Widget (será gerido no State).
+    - [x] Adicionar variáveis de estado em `_TransactionScreenState`: `final _formKey = GlobalKey<FormState>();`, `final _titleController = TextEditingController();`, `final _amountController = TextEditingController();`, `DateTime? _selectedDate;`, `bool _isEditing = false;`.
 - [ ] **5.4 Carregar Dados no `MainScreen`:**
   - [ ] Em `_MainScreenState`:
     - [ ] Implementar `initState()`:
